@@ -12,10 +12,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let mp3 = AudioPlayer()
-        mp3.play(Item())
-        mp3.paused()
-        mp3.stop()
     }
+    
 }
 
