@@ -8,47 +8,49 @@
 
 import UIKit
 
+protocol AudioPlayerObserver: class {
+    func audioPlayer(_ player: AudioPlayer,
+                     didStartPlaying item: AudioPlayer.Item)
 
+    func audioPlayer(_ player: AudioPlayer,
+                     didPausePlaybackOf item: AudioPlayer.Item)
+
+    func audioPlayerDidStop(_ player: AudioPlayer)
+}
+
+extension AudioPlayerObserver {
+    func audioPlayer(_ player: AudioPlayer,
+                     didStartPlaying item: AudioPlayer.Item) {}
+
+    func audioPlayer(_ player: AudioPlayer,
+                     didPausePlaybackOf item: AudioPlayer.Item) {}
+
+    func audioPlayerDidStop(_ player: AudioPlayer) {}
+}
 
 class AudioPlayer {
+    
     struct Item {
         
     }
-    
-    private var notificationCenter: NotificationCenter
+
     private var state = State.idle {
         // We add a property observer on 'state', which lets us
         // run a function on each value change.
         didSet { stateDidChange() }
     }
+    private var observations = [ObjectIdentifier: Observation]()
     
-    init(notificationCenter: NotificationCenter = .default) {
-        self.notificationCenter = notificationCenter
-        notificationCenter.addObserver(self, selector: #selector(playbackDidStart(_:)), name: .playbackStarted, object: nil)
+    func addObserver(_ observer: AudioPlayerObserver) {
+        let id = ObjectIdentifier(observer)
+        observations[id] = Observation(observer: observer)
     }
-    
-    @objc private func playbackDidStart(_ notification: Notification) {
-        guard let item = notification.object as? AudioPlayer.Item else {
-            let object = notification.object as? Any
-            print(object)
-            return
-        }
-        print(item)
-    }
-}
 
-extension Notification.Name {
-    static var playbackStarted: Notification.Name {
-        return .init("AudioPlayer.playbackStarted")
+    func removeObserver(_ observer: AudioPlayerObserver) {
+        let id = ObjectIdentifier(observer)
+        observations.removeValue(forKey: id)
     }
-    
-    static var playbackPaused: Notification.Name {
-        return .init("AudioPlayer.playbackPaused")
-    }
-    
-    static var playbackStopped: Notification.Name {
-        return .init("AudioPlayer.playbackStopped")
-    }
+ 
 }
 
 private extension AudioPlayer {
@@ -58,14 +60,26 @@ private extension AudioPlayer {
         case paused(Item)
     }
     
+    struct Observation {
+        weak var observer: AudioPlayerObserver?
+    }
+
+    
     func stateDidChange() {
-        switch state {
-        case .idle:
-            notificationCenter.post(name: .playbackStopped, object: nil)
-        case let .playing(item):
-            notificationCenter.post(name: .playbackStarted, object: item)
-        case let .paused(item):
-            notificationCenter.post(name: .playbackPaused, object: item)
+        for (id, observation) in observations {
+            guard let observer = observation.observer else {
+                observations.removeValue(forKey: id)
+                continue
+            }
+            
+            switch state {
+            case .idle:
+                observer.audioPlayerDidStop(self)
+            case let .paused(item):
+                observer.audioPlayer(self, didStartPlaying: item)
+            case let .playing(item):
+                observer.audioPlayer(self, didStartPlaying: item)
+            }
         }
     }
 }

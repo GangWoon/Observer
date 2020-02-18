@@ -14,6 +14,7 @@
 		AEF5EAC523FB86AD0038D07E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AEF5EAC423FB86AD0038D07E /* Assets.xcassets */; };
 		AEF5EAC823FB86AD0038D07E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AEF5EAC623FB86AD0038D07E /* LaunchScreen.storyboard */; };
 		AEF5EAD023FB872C0038D07E /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF5EACF23FB872C0038D07E /* AudioPlayer.swift */; };
+		AEF5EAD423FB937E0038D07E /* NowPlayingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF5EAD323FB937E0038D07E /* NowPlayingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		AEF5EAC723FB86AD0038D07E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AEF5EAC923FB86AD0038D07E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AEF5EACF23FB872C0038D07E /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
+		AEF5EAD323FB937E0038D07E /* NowPlayingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 				AEF5EABD23FB86AB0038D07E /* SceneDelegate.swift */,
 				AEF5EABF23FB86AB0038D07E /* ViewController.swift */,
 				AEF5EACF23FB872C0038D07E /* AudioPlayer.swift */,
+				AEF5EAD323FB937E0038D07E /* NowPlayingViewController.swift */,
 				AEF5EAC123FB86AB0038D07E /* Main.storyboard */,
 				AEF5EAC423FB86AD0038D07E /* Assets.xcassets */,
 				AEF5EAC623FB86AD0038D07E /* LaunchScreen.storyboard */,
@@ -142,6 +145,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AEF5EAC023FB86AB0038D07E /* ViewController.swift in Sources */,
+				AEF5EAD423FB937E0038D07E /* NowPlayingViewController.swift in Sources */,
 				AEF5EABC23FB86AB0038D07E /* AppDelegate.swift in Sources */,
 				AEF5EABE23FB86AB0038D07E /* SceneDelegate.swift in Sources */,
 				AEF5EAD023FB872C0038D07E /* AudioPlayer.swift in Sources */,
